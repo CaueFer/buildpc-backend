@@ -19,7 +19,7 @@ import { EquipamentoModule } from './database/equipamento/equipamento.module';
         type: 'postgres',
         url: process.env.POSTGRES_URL,
         // host: process.env.POSTGRES_HOST,
-        // port: parseInt(process.env.DB_PORT, 10) || 5432,
+        port: parseInt(process.env.DB_PORT, 10),
         // username: process.env.POSTGRES_USER,
         // password: process.env.POSTGRES_PASSWORD,
         // database: process.env.POSTGRES_DATABASE,
