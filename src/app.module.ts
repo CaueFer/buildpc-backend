@@ -15,13 +15,14 @@ import { EquipamentoModule } from './database/equipamento/equipamento.module';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: async () => ({
         type: 'postgres',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_DATABASE'),
+        url: process.env.POSTGRES_URL,
+        // host: process.env.POSTGRES_HOST,
+        // port: parseInt(process.env.DB_PORT, 10) || 5432,
+        // username: process.env.POSTGRES_USER,
+        // password: process.env.POSTGRES_PASSWORD,
+        // database: process.env.POSTGRES_DATABASE,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: true,
       }),
