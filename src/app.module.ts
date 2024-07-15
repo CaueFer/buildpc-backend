@@ -15,14 +15,19 @@ import { EquipamentoModule } from "./database/equipamento/equipamento.module";
       imports: [ConfigModule],
       useFactory: async () => ({
         type: "postgres",
-        // url: process.env.POSTGRES_URL,
-        host: process.env.DB_HOST,
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE,
+        url: process.env.POSTGRES_URL,
+
+        // host: process.env.DB_HOST,
+        // username: process.env.DB_USERNAME,
+        // password: process.env.DB_PASSWORD,
+        // database: process.env.DB_DATABASE,
+
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
+        autoLoadEntities: true,
         synchronize: true,
-        ssl: false,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
       inject: [ConfigService],
     }),
