@@ -11,6 +11,11 @@ export class CategoriaController {
     return this.categoriaService.findAll();
   }
 
+  @Get('test')
+  async test() {
+    return "Hello Word";
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Categoria> {
     return this.categoriaService.findOne(id);

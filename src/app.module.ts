@@ -2,8 +2,6 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 
-import { UsersModule } from "./app/users/users.module";
-import { AuthModule } from "./auth/auth.module";
 import { CategoriaModule } from "./database/categoria/categoria.module";
 import { ComponenteModule } from "./database/componente/componente.module";
 import { EquipamentoModule } from "./database/equipamento/equipamento.module";
@@ -31,8 +29,6 @@ import { EquipamentoModule } from "./database/equipamento/equipamento.module";
     CategoriaModule,
     ComponenteModule,
     EquipamentoModule,
-    UsersModule,
-    AuthModule,
   ],
   controllers: [],
   providers: [],
