@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 
-import { UsersModule } from './app/users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { CategoriaModule } from './database/categoria/categoria.module';
-import { ComponenteModule } from './database/componente/componente.module';
-import { EquipamentoModule } from './database/equipamento/equipamento.module';
+import { UsersModule } from "./app/users/users.module";
+import { AuthModule } from "./auth/auth.module";
+import { CategoriaModule } from "./database/categoria/categoria.module";
+import { ComponenteModule } from "./database/componente/componente.module";
+import { EquipamentoModule } from "./database/equipamento/equipamento.module";
 
 @Module({
   imports: [
@@ -16,15 +16,15 @@ import { EquipamentoModule } from './database/equipamento/equipamento.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async () => ({
-        type: 'postgres',
-        url: process.env.POSTGRES_URL,
-        // host: process.env.POSTGRES_HOST,
-        //port: parseInt(process.env.DB_PORT, 10),
-        // username: process.env.POSTGRES_USER,
-        // password: process.env.POSTGRES_PASSWORD,
-        // database: process.env.POSTGRES_DATABASE,
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        type: "postgres",
+        // url: process.env.POSTGRES_URL,
+        host: process.env.DB_HOST,
+        username: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        entities: [__dirname + "/**/*.entity{.ts,.js}"],
         synchronize: true,
+        ssl: false,
       }),
       inject: [ConfigService],
     }),
@@ -32,7 +32,7 @@ import { EquipamentoModule } from './database/equipamento/equipamento.module';
     ComponenteModule,
     EquipamentoModule,
     UsersModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [],
   providers: [],

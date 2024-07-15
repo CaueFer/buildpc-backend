@@ -8,8 +8,9 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe({whitelist: false, forbidNonWhitelisted: true}))
   
-  await app.listen(process.env.DB_PORT, () => {
-    console.log('Server Nest On: ', process.env.DB_PORT);
+  const port = process.env.DB_PORT || 3000;
+  await app.listen(port, () => {
+    console.log('Server Nest On: ', port);
   });
 }
 bootstrap();
