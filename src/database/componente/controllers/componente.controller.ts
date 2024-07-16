@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, Res, HttpStatus } from '@nestjs/common';
 import { ComponenteService } from '../services/componente.service';
 import { Componente } from '../componente.entity';
+import { forbiddenItems } from 'src/rules/forbiddenItems';
 
 
 @Controller('api/componentes')
@@ -28,8 +29,16 @@ export class ComponenteController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number, @Res() res): Promise<void> {
-    await this.componenteService.remove(id);
+  async remove(@Param('id') id: string, @Res() res): Promise<void> {
+    const componentId = parseInt(id, 10);
+
+    if (forbiddenItems.nonEditableComponentIds.includes(componentId)) {
+      return res
+        .status(HttpStatus.FORBIDDEN)
+        .json({ message: "Sem permissão para remover este componente" });
+    }
+
+    await this.componenteService.remove(componentId);
     return res.status(HttpStatus.OK).json({ message: 'Componente removido com sucesso' });
   }
 }

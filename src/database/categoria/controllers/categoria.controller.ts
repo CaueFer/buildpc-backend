@@ -1,8 +1,19 @@
-import { Controller, Get, Post, Body, Param, Delete, HttpStatus, Res, Put } from '@nestjs/common';
-import { Categoria } from '../categoria.entity';
-import { CategoriaService } from '../services/categoria.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  HttpStatus,
+  Res,
+  Put,
+} from "@nestjs/common";
+import { Categoria } from "../categoria.entity";
+import { CategoriaService } from "../services/categoria.service";
+import { forbiddenItems } from "../../../rules/forbiddenItems";
 
-@Controller('api/categorias')
+@Controller("api/categorias")
 export class CategoriaController {
   constructor(private readonly categoriaService: CategoriaService) {}
 
@@ -11,13 +22,13 @@ export class CategoriaController {
     return this.categoriaService.findAll();
   }
 
-  @Get('test')
+  @Get("test")
   async test() {
     return "Hello Word";
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Categoria> {
+  @Get(":id")
+  async findOne(@Param("id") id: number): Promise<Categoria> {
     return this.categoriaService.findOne(id);
   }
 
@@ -26,15 +37,29 @@ export class CategoriaController {
     return this.categoriaService.create(categoria);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() categoria: Categoria, @Res() res): Promise<Categoria> {
+  @Put(":id")
+  async update(
+    @Param("id") id: number,
+    @Body() categoria: Categoria,
+    @Res() res
+  ): Promise<Categoria> {
     const updatedCategoria = await this.categoriaService.update(id, categoria);
     return res.status(HttpStatus.OK).json(updatedCategoria);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: number, @Res() res): Promise<void> {
-    await this.categoriaService.remove(id);
-    return res.status(HttpStatus.OK).json({ message: 'Categoria removida com sucesso' });
-  }
+  @Delete(":id")
+  async remove(@Param("id") id: string, @Res() res): Promise<void> {
+    const categoryId = parseInt(id, 10);
+
+    if (forbiddenItems.nonEditableCategoryIds.includes(categoryId)) {
+      return res
+        .status(HttpStatus.FORBIDDEN)
+        .json({ message: "Sem permissão para remover esta categoria" });
+    }
+
+    await this.categoriaService.remove(categoryId);
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: "Categoria removida com sucesso" });
+  };
 }

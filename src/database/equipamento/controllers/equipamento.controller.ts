@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Param, Delete, HttpStatus, Res, Put } from '@nestjs/common';
 import { EquipamentoService } from '../services/equipamento.service';
 import { Equipamento } from '../equipamento.entity';
+import { forbiddenItems } from 'src/rules/forbiddenItems';
 
 @Controller('api/equipamentos')
 export class EquipamentoController {
@@ -38,8 +39,16 @@ export class EquipamentoController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number, @Res() res): Promise<void> {
-    await this.equipamentoService.remove(id);
+  async remove(@Param('id') id: string, @Res() res): Promise<void> {
+    const equipamentoId = parseInt(id, 10);
+
+    if (forbiddenItems.nonEditableEquipamentIds.includes(equipamentoId)) {
+      return res
+        .status(HttpStatus.FORBIDDEN)
+        .json({ message: "Sem permissão para remover este equipamento" });
+    }
+
+    await this.equipamentoService.remove(equipamentoId);
     return res.status(HttpStatus.OK).json({ message: 'Equipamento removido com sucesso' });
   }
 
