@@ -39,11 +39,22 @@ export class CategoriaController {
 
   @Put(":id")
   async update(
-    @Param("id") id: number,
+    @Param("id") id: string,
     @Body() categoria: Categoria,
     @Res() res
   ): Promise<Categoria> {
-    const updatedCategoria = await this.categoriaService.update(id, categoria);
+    const categoryId = parseInt(id, 10);
+
+    if (forbiddenItems.nonEditableCategoryIds.includes(categoryId)) {
+      return res
+        .status(HttpStatus.FORBIDDEN)
+        .json({ message: "Sem permissão para editar esta categoria" });
+    }
+
+    const updatedCategoria = await this.categoriaService.update(
+      categoryId,
+      categoria
+    );
     return res.status(HttpStatus.OK).json(updatedCategoria);
   }
 
@@ -61,5 +72,5 @@ export class CategoriaController {
     return res
       .status(HttpStatus.OK)
       .json({ message: "Categoria removida com sucesso" });
-  };
+  }
 }
