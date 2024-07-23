@@ -15,7 +15,7 @@ import { EquipamentoModule } from "./database/equipamento/equipamento.module";
       imports: [ConfigModule],
       useFactory: async () => ({
         type: "postgres",
-        url: process.env.POSTGRES_URL,
+        url: process.env.POSTGRESQL_URL,
 
         // host: process.env.DB_HOST,
         // username: process.env.DB_USERNAME,
