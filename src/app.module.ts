@@ -25,7 +25,9 @@ import { EquipamentoModule } from "./database/equipamento/equipamento.module";
         entities: [__dirname + "/**/*.entity{.ts,.js}"],
         autoLoadEntities: true,
         synchronize: true,
-        ssl: false,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
       inject: [ConfigService],
     }),
