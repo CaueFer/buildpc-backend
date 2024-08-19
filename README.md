@@ -1,5 +1,9 @@
 # Projeto Back-end com Nest.js e PostgreSQL
 
+Está procurando o Frontend? 👇
+
+Repositório Front-end, disponível em [buildpc-frontend](https://github.com/CaueFer/buildpc-front).
+
 Este projeto é um exemplo de uma aplicação back-end utilizando Nest.js e banco de dados com PostgreSQL. A aplicação consiste um site para montagem de computadores fictícios e permite aos usuários adicionar produtos e peças ao sistema.
 
 
