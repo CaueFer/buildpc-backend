@@ -16,7 +16,7 @@ import { EquipamentoModule } from "./database/equipamento/equipamento.module";
       useFactory: async () => ({
         type: "postgres",
         url: process.env.POSTGRESQL_URL,
-        schema: 'public',
+        schema: "public",
         // host: process.env.DB_HOST,
         // username: process.env.DB_USERNAME,
         // password: process.env.DB_PASSWORD,
@@ -26,7 +26,7 @@ import { EquipamentoModule } from "./database/equipamento/equipamento.module";
         autoLoadEntities: true,
         synchronize: true,
         ssl: {
-          rejectUnauthorized: false,
+          rejectUnauthorized: true,
         },
       }),
       inject: [ConfigService],

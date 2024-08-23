@@ -12,7 +12,9 @@ import {
 import { ComponenteService } from "../services/componente.service";
 import { Componente } from "../componente.entity";
 import { forbiddenItems } from "src/rules/forbiddenItems";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("componentes")
 @Controller("api/componentes")
 export class ComponenteController {
   constructor(private readonly componenteService: ComponenteService) {}

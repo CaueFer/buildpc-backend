@@ -12,7 +12,9 @@ import {
 import { EquipamentoService } from "../services/equipamento.service";
 import { Equipamento } from "../equipamento.entity";
 import { forbiddenItems } from "src/rules/forbiddenItems";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("equipamentos")
 @Controller("api/equipamentos")
 export class EquipamentoController {
   constructor(private readonly equipamentoService: EquipamentoService) {}
