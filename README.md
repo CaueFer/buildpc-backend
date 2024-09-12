@@ -48,7 +48,7 @@ Computadores<br>
 1- Testar Conexão
 
 ```bash
-https://buildpc-backend-production.up.railway.app/api/categorias
+[swagger](https://buildpc-api.vercel.app/api)
 ```
 
 O projeto estará disponível em [buildpc.com](https://buildupc.vercel.app/home).
