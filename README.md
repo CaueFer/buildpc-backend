@@ -47,9 +47,7 @@ Computadores<br>
 
 1- Testar Conexão
 
-```bash
 [swagger](https://buildpc-api.vercel.app/api)
-```
 
 O projeto estará disponível em [buildpc.com](https://buildupc.vercel.app/home).
 
